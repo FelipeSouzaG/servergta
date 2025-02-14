@@ -52,7 +52,7 @@ class ClientController {
       if (existingUser) {
         existingUser.clientId = newClient._id;
         existingUser.level = 'Cliente';
-        existingUser._updatedBy = newClient._id;
+        existingUser._updatedBy = userId;
         await existingUser.save({ session, validateModifiedOnly: true });
       }
 
