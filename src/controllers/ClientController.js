@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 import {
   Address,
   Budget,
@@ -57,6 +58,20 @@ class ClientController {
       }
 
       await session.commitTransaction();
+
+      const newToken = jwt.sign(
+        { userId: existingUser._id, level: existingUser.level },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: '5m' }
+      );
+
+      res.cookie('token', newToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
+        maxAge: 5 * 60 * 1000,
+      });
+      
       return res.status(201).json({
         title: 'Cliente Cadastrado!',
         msg: `Cliente ${newClient.clientNumber} - ${newClient.name} criado com sucesso!`,
