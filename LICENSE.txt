@@ -1,0 +1,8 @@
+Licença MIT (Modificada)
+Copyright (c) 2025 Felipe Galvão
+
+A permissão é concedida, gratuitamente, a qualquer pessoa que obtenha uma cópia deste software e dos arquivos de documentação associados (o "Software"), para usar o Software exclusivamente para fins pessoais e não comerciais , desde que as seguintes condições sejam atendidas:
+
+O Software não pode ser reproduzido, redistribuído ou comercializado , total ou parcialmente, sem permissão explícita do autor.
+O código-fonte não pode ser modificado ou usado para criar trabalhos sem autorização prévia.
+O SOFTWARE É FORNECIDO "NO ESTADO EM QUE SE ENCONTRA", SEM GARANTIAS DE QUALQUER TIPO, EXPRESSAS OU IMPLÍCITAS.
