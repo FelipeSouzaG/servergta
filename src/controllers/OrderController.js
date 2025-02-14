@@ -204,7 +204,7 @@ class OrderController {
             {
               path: 'addressId',
               select:
-                'addressType street number complement district city state postalCode',
+                'addressType street number complement district city state postalCode clientId',
             },
             {
               path: 'environmentId',
