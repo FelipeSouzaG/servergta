@@ -120,19 +120,33 @@ const requestSchema = new mongoose.Schema(
 );
 
 requestSchema.pre('save', async function (next) {
-  if (
-    !(
-      this.maintenanceProblem ||
-      this.installationEquipment ||
-      this.serviceIds
-    ) ||
-    (this.maintenanceProblem && this.installationEquipment) ||
-    (this.maintenanceProblem && this.serviceIds)
-  ) {
+  const hasMaintenanceProblem = !!this.maintenanceProblem;
+  const hasInstallationEquipment = !!this.installationEquipment;
+  const hasServiceIds = !!(this.serviceIds && this.serviceIds.length > 0);
+
+  if (!hasMaintenanceProblem && !hasInstallationEquipment && !hasServiceIds) {
+    return next(
+      new RequestError({
+        title: 'Tipo de Serviços da REQ',
+        msg: 'Selecione Serviços de Manutenção ou Instação para a Solicitação'
+      })
+    );
+  }
+
+  if (hasMaintenanceProblem && hasInstallationEquipment) {
     return next(
       new RequestError({
         title: 'Falha no Tipo da REQ',
-        msg: 'A REQ deve passar ou Instalação ou Manutenção na solicitação',
+        msg: 'A REQ deve conter apenas Instalação ou Manutenção, não ambos.',
+      })
+    );
+  }
+
+  if (hasMaintenanceProblem && hasServiceIds) {
+    return next(
+      new RequestError({
+        title: 'Tipo de Manutenção',
+        msg: 'A REQ deve conter apenas Serviços ou Problema de Manutenção, não ambos.',
       })
     );
   }
