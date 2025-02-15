@@ -24,7 +24,28 @@ class EnvironmentController {
         return next(
           new RequestError({
             title: 'Cliente não encontrado',
-            msg: 'O cliente informado não existe.',
+            msg: 'O Cliente informado não existe no banco de dados.',
+          })
+        );
+      }
+
+      const formattedEnvName = environmentName
+        .replace(/\s+/g, '-')
+        .toLowerCase();
+      const envId = `${addressId}-${formattedEnvName}`;
+
+      const requestEnv = await Request.findOne({
+        addressId: addressId,
+        envId: envId,
+        requestStatus: { $ne: 'Finalizado' },
+      }).session(session);
+
+      if (requestEnv && level !== 'Técnico') {
+        await session.abortTransaction();
+        return next(
+          new RequestError({
+            title: 'Requisição em Andamento',
+            msg: `Existe uma Requisição aberta para esse Endereço e com Ambiente de nome ${environmentName}.`,
           })
         );
       }
@@ -32,10 +53,8 @@ class EnvironmentController {
       const existingEnvironment = await Environment.findOne({
         clientId,
         addressId,
-        environmentName,
-      })
-        .collation({ locale: 'pt', strength: 2 })
-        .session(session);
+        environmentName: { $regex: new RegExp(`^${formattedEnvName}$`, 'i') },
+      }).session(session);
 
       if (existingEnvironment) {
         await session.abortTransaction();
@@ -85,9 +104,7 @@ class EnvironmentController {
         client.clientType = 'Comum';
         await client.save({ session });
       }
-
       await session.commitTransaction();
-
       res.status(201).json({
         title: 'Ambiente Cadastrado!',
         msg: `Equipamento ${newEnvironment.equipmentNumber} cadastrado ao ambiente!`,
