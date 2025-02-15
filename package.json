@@ -1,7 +1,7 @@
 {
   "name": "gta",
-  "version": "1.0.0",
-  "description": "server service",
+  "version": "25.1.00.0.0",
+  "description": "Web/Services",
   "main": "src/app.js",
   "type": "module",
   "scripts": {
