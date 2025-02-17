@@ -81,6 +81,11 @@ const requestSchema = new mongoose.Schema(
     feedback: {
       type: String,
     },
+    officerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Officer',
+      default: null,
+    },
     budgetId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Budget',
