@@ -53,10 +53,10 @@ router.delete(
   AddressController.deleteAddressClient
 );
 router.get(
-  '/:id',
+  '/officer/:id',
   Auth.authenticate,
   Auth.authorizeSecretario,
-  AddressController.getAddressId
+  AddressController.getAddressOfficerId
 );
 
 export default router;
