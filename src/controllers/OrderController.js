@@ -55,7 +55,7 @@ class OrderController {
       session.endSession();
       res.status(201).json({
         title: 'Ordem de Serviço Criada!',
-        msg: `Ordem de Serviço marcada para ${newOrder.date} as ${newOrder.time}.`,
+        msg: `Ordem de Serviço marcada para ${normalizeDate(newOrder.date)} as ${newOrder.time}.`,
         status: 201,
         level: level,
       });
