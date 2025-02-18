@@ -415,21 +415,22 @@ class AddressController {
     }
   };
 
-  static getAddressId = async (req, res, next) => {
+  static getAddressOfficerId = async (req, res, next) => {
     try {
       const { level } = req.userData;
       const { id } = req.params;
-      const existingAddress = await Address.find({ id });
-      if (!existingAddress) {
+      const existingAddress = await Address.find({ officerId: id });
+      if (!existingAddress.length) {
         return next(
-          new NotFound({
+          new RequestError({
             title: 'Endereço não encontrado!',
             msg: 'Endereço não encontrado no banco de dados.',
           })
         );
       }
+
       res.status(200).json({
-        address: existingAddress,
+        addresses: existingAddress,
         level: level,
         status: 200,
       });
