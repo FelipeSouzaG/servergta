@@ -57,7 +57,7 @@ class RequestController {
 
       res.status(201).json({
         title: 'Serviço Registrado!',
-        msg: `Solicitação de Serviço ${newRequest.requestNumber}. Aguarde retorno do técnico.`,
+        msg: `Solicitação de Serviço ${newRequest.requestNumber} registrado com sucesso!`,
         status: 201,
         level: level,
       });
