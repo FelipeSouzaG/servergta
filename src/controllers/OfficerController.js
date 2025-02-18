@@ -48,7 +48,7 @@ class OfficerController {
 
       return res.status(201).json({
         title: 'Colaborador Cadastrado!',
-        msg: `Colaborador ${newOfficer.officerNumber} - ${newOfficer.name} criado com sucesso!`,
+        msg: `Colaborador ${newOfficer.officerNumber} - ${existingUser.name} criado com sucesso!`,
         level: level,
         status: 201,
       });
