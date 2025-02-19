@@ -72,6 +72,9 @@ const requestSchema = new mongoose.Schema(
       required: [true, 'Número da Requisição é obrigatório.'],
       trim: true,
     },
+    requestDate: {
+      type: String,
+    },
     dateVisit: {
       type: String,
     },
